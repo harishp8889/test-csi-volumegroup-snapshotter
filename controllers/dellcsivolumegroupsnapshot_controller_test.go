@@ -91,8 +91,7 @@ func (suite *VGSControllerTestSuite) Init() {
 
 	suite.mockUtils = &fake_client.MockUtils{
 		FakeClient: c,
-		// FakeClient: fake_controller.NewClientBuilder().Build(),
-		Specs: common.Common{Namespace: "fake-ns"},
+		Specs:      common.Common{Namespace: "fake-ns"},
 	}
 }
 
@@ -369,9 +368,9 @@ func (suite *VGSControllerTestSuite) TestPVCNotBound() {
 
 // test grpc call error to driver
 func (suite *VGSControllerTestSuite) TestCsiDriverCreateFail() {
-	suite.makeFakeVG(ctx, label, vgNameTestErr, suite.mockUtils.Specs.Namespace, "Retain", nil)
+	suite.makeFakeVG(ctx, label+"99", vgNameTestErr+"99", suite.mockUtils.Specs.Namespace, "Retain", nil)
 	suite.makeFakeVSC(ctx)
-	suite.makeFakePV(ctx, fakePvName1, srcVolID)
+	suite.makeFakePV(ctx, fakePvName1+"99", srcVolID+"99")
 	suite.makeFakePVC(ctx, label, fakePvcName1, suite.mockUtils.Specs.Namespace, fakePvName1)
 	suite.runFakeVGManager(vgNameTestErr, suite.mockUtils.Specs.Namespace, "deliberately return error to test csi driver extension grpc error")
 }
