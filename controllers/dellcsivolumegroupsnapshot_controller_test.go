@@ -206,13 +206,13 @@ func (suite *VGSControllerTestSuite) TestReconcileWithAllContentDeleted() {
 
 // test a failed reconcile due to using reclaim policy other than retain/delete
 func (suite *VGSControllerTestSuite) TestDeleteError() {
-	suite.makeFakeVG(ctx, label, vgName, suite.mockUtils.Specs.Namespace, "test", nil)
+	suite.makeFakeVG(ctx, label, vgName+"99", suite.mockUtils.Specs.Namespace, "test", nil)
 	suite.makeFakeVSC(ctx)
-	suite.makeFakePV(ctx, fakePvName1, srcVolID)
-	suite.makeFakePVC(ctx, label, fakePvcName1, suite.mockUtils.Specs.Namespace, fakePvName1)
+	suite.makeFakePV(ctx, fakePvName1+"99", srcVolID+"99")
+	suite.makeFakePVC(ctx, label, fakePvcName1+"99", suite.mockUtils.Specs.Namespace, fakePvName1+"99")
 	suite.runFakeVGManager(vgName, suite.mockUtils.Specs.Namespace, "")
-	suite.deleteFakeVG(ctx, vgName, true)
-	suite.runFakeVGManager(vgName, suite.mockUtils.Specs.Namespace, "memberReclaimPolicy should be either delete or retain")
+	suite.deleteFakeVG(ctx, vgName+"99", true)
+	suite.runFakeVGManager(vgName+"99", suite.mockUtils.Specs.Namespace, "memberReclaimPolicy should be either delete or retain")
 }
 
 // test a succesful reconcile
